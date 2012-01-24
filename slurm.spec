@@ -92,7 +92,7 @@ Release: %mkrel 1
 Summary: Simple Linux Utility for Resource Management
 
 License: GPL
-Group: System Environment/Base
+Group: System/Servers
 Source: %name-%version.tar.bz2
 Source1:	%name.init
 Source2:	%{name}ctld.init
@@ -218,7 +218,7 @@ and static libraries for the SLURM API.
 %if %{slurm_with auth_none}
 %package auth-none
 Summary: SLURM auth NULL implementation (no authentication)
-Group: System Environment/Base
+Group: System/Servers
 Requires: slurm
 %description auth-none
 SLURM NULL authentication module
@@ -227,7 +227,7 @@ SLURM NULL authentication module
 %if %{slurm_with authd}
 %package auth-authd
 Summary: SLURM auth implementation using Brent Chun's authd
-Group: System Environment/Base
+Group: System/Servers
 Requires: slurm authd
 %description auth-authd
 SLURM authentication module for Brent Chun's authd
@@ -238,7 +238,7 @@ SLURM authentication module for Brent Chun's authd
 %if %{slurm_with munge}
 %package munge
 Summary: SLURM authentication and crypto implementation using Munge
-Group: System Environment/Base
+Group: System/Servers
 Requires: slurm munge
 BuildRequires: munge-devel munge-libs
 Obsoletes: slurm-auth-munge
@@ -249,7 +249,7 @@ SLURM authentication module for Chris Dunlap's Munge
 %if %{slurm_with bluegene}
 %package bluegene
 Summary: SLURM interfaces to IBM Blue Gene system
-Group: System Environment/Base
+Group: System/Servers
 Requires: slurm
 %description bluegene
 SLURM plugin interfaces to IBM Blue Gene system
@@ -258,7 +258,7 @@ SLURM plugin interfaces to IBM Blue Gene system
 %if %{slurm_with elan}
 %package switch-elan
 Summary: SLURM switch plugin for Quadrics Elan3 or Elan4.
-Group: System Environment/Base
+Group: System/Servers
 Requires: slurm qsnetlibs
 BuildRequires: qsnetlibs
 %description switch-elan
@@ -267,7 +267,7 @@ SLURM switch plugin for Quadrics Elan3 or Elan4.
 
 %package slurmdbd
 Summary: SLURM database daemon
-Group: System Environment/Base
+Group: System/Servers
 Requires: slurm-plugins slurm-sql
 %description slurmdbd
 SLURM database daemon
@@ -275,7 +275,7 @@ SLURM database daemon
 
 %package slurmctld
 Summary: SLURMCTLD database daemon
-Group: System Environment/Base
+Group: System/Servers
 Requires: slurm
 %description slurmctld
 SLURMCTLD  daemon
@@ -283,13 +283,13 @@ Control slurm nodes
 
 %package sql
 Summary: SLURM SQL support
-Group: System Environment/Base
+Group: System/Servers
 %description sql
 SLURM sql support
 
 %package plugins
 Summary: SLURM plugins (loadable shared objects)
-Group: System Environment/Base
+Group: System/Servers
 %description plugins
 SLURM plugins (loadable shared objects)
 
@@ -326,7 +326,7 @@ Wrappers to write directly to the slurmdb.
 %if %{slurm_with aix}
 %package aix
 Summary: SLURM interfaces to IBM AIX and Federation switch.
-Group: System Environment/Base
+Group: System/Servers
 Requires: slurm
 BuildRequires: proctrack >= 3
 Obsoletes: slurm-aix-federation
@@ -337,7 +337,7 @@ SLURM plugins for IBM AIX and Federation switch.
 %if %{slurm_with sgijob}
 %package proctrack-sgi-job
 Summary: SLURM process tracking plugin for SGI job containers.
-Group: System Environment/Base
+Group: System/Servers
 Requires: slurm
 BuildRequires: job
 %description proctrack-sgi-job
@@ -348,7 +348,7 @@ SLURM process tracking plugin for SGI job containers.
 %if %{slurm_with lua}
 %package lua
 Summary: SLURM lua bindings
-Group: System Environment/Base
+Group: System/Servers
 Requires: slurm lua
 BuildRequires: lua-devel
 %description lua
@@ -366,7 +366,7 @@ Perl tool to print SLURM job state information.
 %if %{slurm_with pam}
 %package pam_slurm
 Summary: PAM module for restricting access to compute nodes via SLURM.
-Group: System Environment/Base
+Group: System/Servers
 Requires: slurm slurm-devel
 BuildRequires: pam-devel
 Obsoletes: pam_slurm
@@ -380,7 +380,7 @@ or any user who has allocated resources on the node according to the SLURM
 %if %{slurm_with blcr}
 %package blcr
 Summary: Allows SLURM to use Berkeley Lab Checkpoint/Restart
-Group: System Environment/Base
+Group: System/Servers
 Requires: slurm
 %description blcr
 Gives the ability for SLURM to use Berkeley Lab Checkpoint/Restart
