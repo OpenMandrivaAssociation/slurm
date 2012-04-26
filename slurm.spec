@@ -19,6 +19,7 @@ BuildRequires: python
 BuildRequires: mysql-devel
 BuildRequires: postgresql-devel
 BuildRequires: munge-devel
+BuildRequires: lua-devel
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 
