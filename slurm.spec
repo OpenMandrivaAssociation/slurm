@@ -2,7 +2,7 @@
 %define libslurm %mklibname slurm %{major}
 
 Name:    slurm
-Version: 2.3.3
+Version: 2.3.4
 Release: 1
 Summary: Simple Linux Utility for Resource Management
 License: GPLv2
@@ -175,6 +175,7 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/slurm/*.{a,la} \
 %{_bindir}/squeue
 %{_bindir}/sreport
 %{_bindir}/srun
+%{_bindir}/smap
 %{_bindir}/sshare
 %{_bindir}/sstat
 %{_bindir}/strigger
@@ -211,6 +212,8 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/slurm/*.{a,la} \
 %{_mandir}/man8/spank.8.*
 %dir %{_libdir}/slurm
 %{_libdir}/slurm/checkpoint_none.so
+%{_libdir}/slurm/job_submit_lua.so
+%{_libdir}/slurm/proctrack_lua.so
 %{_libdir}/slurm/jobacct_gather_linux.so
 %{_libdir}/slurm/jobacct_gather_none.so
 %{_libdir}/slurm/jobacct_gather_aix.so
