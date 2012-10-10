@@ -2,7 +2,7 @@
 %define libslurm %mklibname slurm %{major}
 
 Name:    slurm
-Version: 2.3.4
+Version: 2.4.3
 Release: 1
 Summary: Simple Linux Utility for Resource Management
 License: GPLv2
@@ -133,24 +133,23 @@ autoreconf -fiv
 %make
 
 %install
-rm -rf "$RPM_BUILD_ROOT"
-mkdir -p "$RPM_BUILD_ROOT"
+rm -rf "%{buildroot}"
+mkdir -p "%{buildroot}"
 %makeinstall
 
-install -D -m755 %{SOURCE1} $RPM_BUILD_ROOT/%{_initrddir}/slurm
-install -D -m755 %{SOURCE2} $RPM_BUILD_ROOT/%{_initrddir}/slurmctld
-install -D -m755 etc/init.d.slurmdbd $RPM_BUILD_ROOT/%{_initrddir}/slurmdbd
+install -D -m755 %{SOURCE1} %{buildroot}/%{_initrddir}/slurm
+install -D -m755 %{SOURCE2} %{buildroot}/%{_initrddir}/slurmctld
+install -D -m755 etc/init.d.slurmdbd %{buildroot}/%{_initrddir}/slurmdbd
 install -D -m644 etc/slurm.conf.example ${RPM_BUILD_ROOT}%{slurm_sysconfdir}/slurm.conf.example
 install -D -m755 etc/slurm.epilog.clean ${RPM_BUILD_ROOT}%{slurm_sysconfdir}/slurm.epilog.clean
 
 # Delete unpackaged files:
-rm -rf $RPM_BUILD_ROOT/%{_libdir}/slurm/*.{a,la} \
-	$RPM_BUILD_ROOT/%{_libdir}/*.la \
-	$RPM_BUILD_ROOT/%{_datadir}/doc/slurm-%{version}/ \
-	$RPM_BUILD_ROOT/%{_mandir}/man5/bluegene*
+rm -rf %{buildroot}/%{_libdir}/slurm/*.{a,la} \
+	%{buildroot}/%{_libdir}/*.la \
+	%{buildroot}/%{_datadir}/doc/slurm-%{version}/ \
+	%{buildroot}/%{_mandir}/man5/bluegene*
 
 %files
-%defattr(-,root,root)
 %doc AUTHORS
 %doc NEWS
 %doc README.rst
@@ -178,6 +177,7 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/slurm/*.{a,la} \
 %{_bindir}/srun
 %{_bindir}/smap
 %{_bindir}/sshare
+%{_bindir}/sdiag
 %{_bindir}/sstat
 %{_bindir}/strigger
 %{_initrddir}/slurm
@@ -203,6 +203,7 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/slurm/*.{a,la} \
 %{_mandir}/man1/sshare.1*
 %{_mandir}/man1/sstat.1*
 %{_mandir}/man1/strigger.1*
+%{_mandir}/man1/sdiag.1*
 %{_mandir}/man5/slurm.conf.5.*
 %{_mandir}/man5/cgroup.conf.5*
 %{_mandir}/man5/cray.conf.5*
@@ -213,6 +214,8 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/slurm/*.{a,la} \
 %{_mandir}/man8/spank.8.*
 %dir %{_libdir}/slurm
 %{_libdir}/slurm/checkpoint_none.so
+%{_libdir}/slurm/jobacct_gather_cgroup.so
+%{_libdir}/slurm/mpi_pmi2.so
 %{_libdir}/slurm/job_submit_lua.so
 %{_libdir}/slurm/proctrack_lua.so
 %{_libdir}/slurm/jobacct_gather_linux.so
@@ -267,7 +270,6 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/slurm/*.{a,la} \
 %config(noreplace) %{slurm_sysconfdir}/slurm.epilog.clean
 
 %files -n %{libslurm}
-%defattr(-,root,root)
 %{_libdir}/*.so.*
 
 %files devel
@@ -293,7 +295,6 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/slurm/*.{a,la} \
 %files sched-wiki
 %{_libdir}/slurm/sched_wiki*.so
 %{_mandir}/man5/wiki.*
-%defattr(-,root,root)
 
 %files sview
 %{_bindir}/sview
@@ -331,10 +332,3 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/slurm/*.{a,la} \
 
 %preun slurmdbd
 %_preun_service slurmdbd
-
-%changelog
-* Tue Feb 8 2012 Bogdano Arendartchuk <bogdano@mandriva.com.br> 2.3.3-1
-- adapted (and capped down) the package to Mandriva Linux
-
-* Tue Feb 14 2006 Morris Jette <jette1@llnl.gov>
-- See the NEWS file for update details
