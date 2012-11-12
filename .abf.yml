@@ -1,0 +1,4 @@
+sources:
+  "slurm-2.3.4.tar.bz2:"	198ef06298f6f46edad097a0b6e7be63cff61914
+  "slurmctld.init:"	6e0e9876853a9b64989d819afd064cf2019e81f8
+  "slurm.init:"	7237f0ec1c00fd85a5ab4c7507f7d3b82de679ae

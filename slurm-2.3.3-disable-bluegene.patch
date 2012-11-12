@@ -1,0 +1,14 @@
+--- ./src/plugins/select/Makefile.am.orig	2012-02-09 18:53:09.000000000 +0000
++++ ./src/plugins/select/Makefile.am	2012-02-09 18:53:14.000000000 +0000
+@@ -1,10 +1,6 @@
+ # Makefile for node selection plugins
+ 
+-if WITH_CXX
+-BLUEGENE = bluegene
+-endif
+-
+-SUBDIRS = $(BLUEGENE) cons_res cray linear
++SUBDIRS = cons_res cray linear
+ 
+ # Each plugin here needs a plugin_id, here are the currect plug_ids
+ # for each plugin.
