@@ -1,0 +1,102 @@
+#!/bin/bash
+#
+# chkconfig: 345 90 10
+# description: SLURM is a simple resource management system which \
+#              manages exclusive access to a set of compute \
+#              resources and distributes work to those resources.
+#
+# processname: /usr/sbin/slurmd
+# pidfile: /var/run/slurmd.pid
+#
+# config: /etc/sysconfig/slurm
+#
+### BEGIN INIT INFO
+# Provides:          slurm
+# Required-Start:    $remote_fs $syslog $network munge
+# Required-Stop:     $remote_fs $syslog $network munge
+# Should-Start:      $named
+# Should-Stop:       $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: slurm daemon management
+# Description:       Start slurm to provide resource management
+### END INIT INFO
+
+BINDIR=/usr/bin
+CONFDIR=/etc/slurm
+prog=slurmd
+HOSTSER=`hostname -s`
+#OPTIONS=-D
+
+if [ ! -f /etc/rc.d/init.d/functions ]; then
+    echo "Could not find /etc/rc.d/init.d/functions. Is some other daemon launch mechanism used?"
+    exit 1
+fi
+. /etc/rc.d/init.d/functions
+
+if [ ! -x $BINDIR/scontrol ]; then
+   echo "Could not find $BINDIR/scontrol. Bad path?"
+   exit 1
+fi
+
+# Source slurm specific configuration
+# This can be used to alter limits for users jobs or set daemon options.
+# For example, the limits for user jobs could be higher or lower than the
+# default limits for user root (e.g. "ulimit -t unlimited" sets an unlimited
+# CPU time limit for spawned user jobs).
+# SLURMD_OPTIONS defines slurmd command line options. See "man slurmd"
+if [ -f /etc/sysconfig/slurm ] ; then
+    . /etc/sysconfig/slurm
+else
+    SLURMD_OPTIONS="-N $HOSTSER"
+fi
+
+if [ ! -f $CONFDIR/slurm.conf ]; then
+   echo "Could not find $CONFDIR/slurm.conf. Bad path?"
+   exit 1
+fi
+
+start() {
+    gprintf "Starting %s:" "$prog"
+    $prog -c $CONFDIR/slurm.conf $SLURMD_OPTIONS && success "startup" || failure "startup"
+    RETVAL=$?
+    [ "$RETVAL" = 0 ] && touch /var/lock/subsys/slurm
+    echo
+}
+
+stop() {
+        gprintf "Stopping %s:" "$prog"
+        if [ -r /var/run/slurmd.pid ]; then
+    	    kill -9 `cat /var/run/slurmd.pid`
+            RETVAL=$?
+            [ "$RETVAL" = 0 ] && success "stop" || failure "stop"
+        else
+            success "already stopped"
+            RETVAL=0
+        fi
+        [ "$RETVAL" = 0 ] && rm -f /var/lock/subsys/slurmd && rm -f /var/run/slurmd.pid
+        echo
+}
+
+case "$1" in
+    start)
+	start
+	;;
+    stop)
+	stop
+	;;
+    restart)
+	$0 stop
+	$0 start
+	;;
+    reconfig)
+	for prog in `$BINDIR/scontrol show daemons`; do
+	    killproc $prog -HUP
+	done
+	;;
+    *)
+	echo "Usage: $0 {start|stop|restart|reconfig}"
+	exit 1
+	;;
+esac
+
