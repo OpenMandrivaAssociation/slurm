@@ -3,7 +3,7 @@
 
 Name:    slurm
 Version: 2.4.3
-Release: 1
+Release: 2
 Summary: Simple Linux Utility for Resource Management
 License: GPLv2
 Group: System/Cluster
