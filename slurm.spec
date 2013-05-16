@@ -14,7 +14,7 @@ Patch0: slurm-2.3.3-disable-bluegene.patch
 URL: http://www.llnl.gov/linux/slurm
 BuildRequires: openssl-devel
 BuildRequires: gcc-c++
-BuildRequires: libgtk+2.0-devel
+BuildRequires: pkgconfig(gtk+-2.0)
 BuildRequires: python
 BuildRequires: mysql-devel
 BuildRequires: postgresql-devel
