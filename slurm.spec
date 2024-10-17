@@ -11,7 +11,7 @@ Source0: http://www.schedmd.com/download/latest/slurm-%{version}.tar.bz2
 Source1: slurm.init
 Source2: slurmctld.init
 Patch0: slurm-2.3.3-disable-bluegene.patch
-URL: http://www.llnl.gov/linux/slurm
+URL: https://www.llnl.gov/linux/slurm
 BuildRequires: openssl-devel
 BuildRequires: gcc-c++
 BuildRequires: pkgconfig(gtk+-2.0)
