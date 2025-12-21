@@ -12,6 +12,11 @@ Source1: slurm.init
 Source2: slurmctld.init
 Patch0: slurm-2.3.3-disable-bluegene.patch
 URL: https://www.llnl.gov/linux/slurm
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires: openssl-devel
 BuildRequires: gcc-c++
 BuildRequires: pkgconfig(gtk+-2.0)
